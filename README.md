@@ -38,7 +38,7 @@ This demo uses two different versions of React: React 17 for "modern" components
 
 **We still recommend upgrading your whole app to React 17 in one piece.** The React 17 release intentionally has minimal breaking changes so that it's easier to upgrade to. In particular, React 17 solves some problems with nesting related to event propagation that earlier versions of React did not handle well. We expect that this nesting demo may not be as useful today as during a future migration from React 17 to the future major versions where some of the long-deprecated APIs may be removed.
 
-However, if you're already stuck on an old version of React, you may found this approach useful today. If you remove a Hook call from `src/shared/Clock.js`, you can downgrade the legacy React all the way down to React 16.3. If you then remove Context API usage from `src/legacy/createLegacyRoot.js`, you can further downgrade the legacy React version, but keep in mind that the usage of third-party libraries included in this demo (React Router and React Redux) may need to be adjusted or removed.
+However, if you're already stuck on an old version of React, you may found this approach useful today. If you remove a Hook call from `src/shared/Clock.js`, you can downgrade the legacy React all the way down to React 16.3. If you then remove Context API usage from `src/legacy/createLegacyRoot.jsx`, you can further downgrade the legacy React version, but keep in mind that the usage of third-party libraries included in this demo (React Router and React Redux) may need to be adjusted or removed.
 
 ## Installation
 
@@ -152,7 +152,7 @@ This breaks third-party libraries like React Redux or React Router, as well as a
 To solve this problem, we read all the Contexts we care about in the outer tree, pass them to the inner tree, and then wrap the inner tree in the corresponding Providers. You can see this in action in two files:
 
 * `src/modern/lazyLegacyRoot.js`: Look for `useContext` calls, and how their results are combined into a single object that is passed through. **You can read more Contexts there** if your app requires them.
-* `src/legacy/createLegacyRoot.js`: Look for the `Bridge` component which receives that object and wraps its children with the appropriate Context Providers. **You can wrap them with more Providers there** if your app requires them.
+* `src/legacy/createLegacyRoot.jsx`: Look for the `Bridge` component which receives that object and wraps its children with the appropriate Context Providers. **You can wrap them with more Providers there** if your app requires them.
 
 Note that, generally saying, this approach is somewhat fragile, especially because some libraries may not expose their Contexts officially or consider their structure private. You may be able to expose private Contexts by using a tool like [patch-package](https://www.npmjs.com/package/patch-package), but remember to keep all the versions pinned because even a patch release of a third-party library may change the behavior.
 

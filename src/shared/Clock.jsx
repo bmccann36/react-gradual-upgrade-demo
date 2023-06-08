@@ -5,4 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import './modern/index';
+import React from 'react';
+
+import useTime from './useTime.jsx';
+
+export default function Clock() {
+  const time = useTime();
+  return <p>Time: {time}</p>;
+}
