@@ -2,3 +2,6 @@ node_modules
 build
 .DS_Store
 src/*/shared
+/.idea/modules.xml
+/.idea/react-gradual-upgrade-demo.iml
+/.idea/vcs.xml
