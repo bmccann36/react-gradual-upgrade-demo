@@ -19,11 +19,12 @@ export default function lazyLegacyRoot(getLegacyComponent) {
   };
 
   return function Wrapper(props) {
-    // Get the router objects you want to share
+    // Get the router objects you want to share with the legacy subtree.
     const router = {
       navigate: useNavigate(),
       location: useLocation(),
     }
+    // createLegacyRoot is a function we'll use later
     const createLegacyRoot = readModule(rendererModule, () =>
       import('../legacy/createLegacyRoot')
     ).default;
