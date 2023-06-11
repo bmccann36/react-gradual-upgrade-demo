@@ -5,9 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react';
-import {useState, Suspense} from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import React, {Suspense, useState} from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import HomePage from './HomePage';
 import AboutPage from './AboutPage';
@@ -38,14 +37,10 @@ export default function App() {
             <button onClick={handleToggleClick}>Toggle Theme Context</button>
             <br />
             <Suspense fallback={<Spinner />}>
-              <Switch>
-                <Route path="/about">
-                  <AboutPage />
-                </Route>
-                <Route path="/">
-                  <HomePage />
-                </Route>
-              </Switch>
+              <Routes>
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/" element={<HomePage />} />
+              </Routes>
             </Suspense>
           </div>
         </div>

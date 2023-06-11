@@ -1,22 +1,15 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-import React from 'react';
-import {useContext, useMemo, useRef, useLayoutEffect} from 'react';
-import {__RouterContext} from 'react-router';
+import React, {useContext, useLayoutEffect, useMemo, useRef} from 'react';
 import {ReactReduxContext} from 'react-redux';
 
 import ThemeContext from './shared/ThemeContext';
+import {useLocation, useNavigate} from "react-router-dom";
 
 let rendererModule = {
   status: 'pending',
   promise: null,
   result: null,
 };
+
 
 export default function lazyLegacyRoot(getLegacyComponent) {
   let componentModule = {
@@ -26,6 +19,11 @@ export default function lazyLegacyRoot(getLegacyComponent) {
   };
 
   return function Wrapper(props) {
+    // Get the router objects you want to share
+    const router = {
+      navigate: useNavigate(),
+      location: useLocation(),
+    }
     const createLegacyRoot = readModule(rendererModule, () =>
       import('../legacy/createLegacyRoot')
     ).default;
@@ -36,7 +34,6 @@ export default function lazyLegacyRoot(getLegacyComponent) {
     // Populate every contexts we want the legacy subtree to see.
     // Then in src/legacy/createLegacyRoot we will apply them.
     const theme = useContext(ThemeContext);
-    const router = useContext(__RouterContext);
     const reactRedux = useContext(ReactReduxContext);
     const context = useMemo(
       () => ({
@@ -65,7 +62,7 @@ export default function lazyLegacyRoot(getLegacyComponent) {
       }
     }, [Component, props, context]);
 
-    return <div style={{display: 'contents'}} ref={containerRef} />;
+    return <div style={{display: 'contents'}} ref={containerRef}/>;
   };
 }
 
