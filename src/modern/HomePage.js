@@ -5,12 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react';
-import {useContext} from 'react';
+import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import ThemeContext from './shared/ThemeContext';
 import Clock from './shared/Clock';
+
+
 
 export default function HomePage({counter, dispatch}) {
   const theme = useContext(ThemeContext);
@@ -20,10 +21,11 @@ export default function HomePage({counter, dispatch}) {
       <h3 style={{color: theme}}>
         This component is rendered by the outer React ({React.version}).
       </h3>
-      <Clock />
+      <Clock/>
       <b>
         <Link to="/about">Go to About</Link>
       </b>
     </>
+
   );
 }

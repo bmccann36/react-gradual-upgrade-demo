@@ -1,5 +1,8 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import Box from '@mui/material/Box';
+import {DataGridPro} from '@mui/x-data-grid-pro';
+import {useDemoData} from '@mui/x-data-grid-generator';
 
 import ThemeContext from './shared/ThemeContext';
 import Clock from './shared/Clock';
@@ -25,6 +28,12 @@ const AboutSection = () => {
     navigate('/');
   };
 
+  const {data} = useDemoData({
+    dataSet: 'Commodity',
+    rowLength: 100000,
+    editable: true,
+  });
+
   return (
     <ThemeContext.Consumer>
       {theme => (
@@ -45,6 +54,15 @@ const AboutSection = () => {
               Go to parent app
             </button>
           </p>
+          <Box sx={{height: 520, width: '100%'}}>
+            <DataGridPro
+              {...data}
+              loading={data.rows.length === 0}
+              rowHeight={38}
+              checkboxSelection
+              disableRowSelectionOnClick
+            />
+          </Box>
         </div>
       )}
     </ThemeContext.Consumer>
