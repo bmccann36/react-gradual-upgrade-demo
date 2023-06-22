@@ -19,21 +19,21 @@ export default function lazyLegacyRoot(getLegacyComponent) {
   };
 
   return function Wrapper(props) {
-    // Get the router objects you want to share with the legacy subtree.
+    // Get the router objects you want to share with the modern subtree.
     const router = {
       navigate: useNavigate(),
       location: useLocation(),
     }
     // createLegacyRoot is a function we'll use later
     const createLegacyRoot = readModule(rendererModule, () =>
-      import('../legacy/createLegacyRoot')
+      import('../modern/createLegacyRoot')
     ).default;
     const Component = readModule(componentModule, getLegacyComponent).default;
     const containerRef = useRef(null);
     const rootRef = useRef(null);
 
-    // Populate every contexts we want the legacy subtree to see.
-    // Then in src/legacy/createLegacyRoot we will apply them.
+    // Populate every contexts we want the modern subtree to see.
+    // Then in src/modern/createLegacyRoot we will apply them.
     const theme = useContext(ThemeContext);
     const reactRedux = useContext(ReactReduxContext);
     const context = useMemo(
@@ -69,7 +69,7 @@ export default function lazyLegacyRoot(getLegacyComponent) {
 
 // This is similar to React.lazy, but implemented manually.
 // We use this to Suspend rendering of this component until
-// we fetch the component and the legacy React to render it.
+// we fetch the component and the modern React to render it.
 function readModule(record, createPromise) {
   if (record.status === 'fulfilled') {
     return record.result;

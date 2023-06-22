@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 export const RouterContext = createContext();
 
 // Pass through every context required by this tree.
-// The context object is populated in src/modern/withLegacyRoot.
+// The context object is populated in src/legacy/withLegacyRoot.
 function Bridge({children, context}) {
 
   return (

@@ -12,8 +12,8 @@ import {connect} from 'react-redux';
 import ThemeContext from './shared/ThemeContext';
 import lazyLegacyRoot from './lazyLegacyRoot';
 
-// Lazy-load a component from the bundle using legacy React.
-const Greeting = lazyLegacyRoot(() => import('../legacy/Greeting'));
+// Lazy-load a component from the bundle using modern React.
+const Greeting = lazyLegacyRoot(() => import('../modern/Greeting'));
 
 function AboutPage({counter, dispatch}) {
   const theme = useContext(ThemeContext);
